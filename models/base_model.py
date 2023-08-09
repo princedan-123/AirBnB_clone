@@ -7,15 +7,11 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """the object constructor, it initialises instances of BaseModel"""
         if kwargs and len(args) == 0:
-            for i in kwargs.keys():
-                if i == created_at:
-                    obj_format = datetime.fromisoformat(i)
-                    self.i = obj_format
-                elif i == updated_at:
-                    obj_format = datetime.fromisoformat(i)
-                    self.i = obj_format
-                elif i != __class__ :
-                    self.i = kwargs[i]
+            for key, value in kwargs.keys():
+                if key == "created_at" or key == "updated_at":
+                    setattr(self, key, datetime.fromisoformat(value))
+                elif key != "__class__" :
+                    self.key = value
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
