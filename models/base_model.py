@@ -4,11 +4,22 @@ from datetime import datetime
 """ This module contains a superclass BaseModel that will be inherited"""
 class BaseModel:
     """A super class that subsquent classes will inherit from """
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """the object constructor, it initialises instances of BaseModel"""
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs and len(args) == 0:
+            for i in kwargs.keys():
+                if i == created_at:
+                    obj_format = datetime.fromisoformat(i)
+                    self.i = obj_format
+                elif i == updated_at:
+                    obj_format = datetime.fromisoformat(i)
+                    self.i = obj_format
+                elif i != __class__ :
+                    self.i = kwargs[i]
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
     def __str__(self):
         """returns the string representation of the class BaseModel"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
