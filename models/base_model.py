@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from uuid import uuid4
 from datetime import datetime
+from models.__init__ import storage
 """ This module contains a superclass BaseModel that will be inherited"""
 
 
@@ -18,6 +19,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """returns the string representation of the class BaseModel"""
@@ -26,6 +28,7 @@ class BaseModel:
     def save(self):
         """updates the public instance attribute updated_at
             with the current datetime"""
+        storage.save()
         self.updated_at = datetime.now()
 
     def to_dict(self):
