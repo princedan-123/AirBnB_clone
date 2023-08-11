@@ -4,12 +4,17 @@ import cmd
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models.__init__ import storage
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
     """ A class that uses cmd module to implement a CLI"""
     prompt = "(hbnb) "
-    valid_classes = {"BaseModel":BaseModel, "FileStorage":FileStorage}
+    valid_classes = {
+            "BaseModel": BaseModel,
+            "FileStorage": FileStorage,
+            "User": User
+            }
 
     def do_quit(self, argument):
         """this command exits the CLI"""
@@ -86,6 +91,37 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(dic_list)
 
+    def do_update(self, line):
+        """updates the attribute of an instance"""
+        self.argument = line.split()
+        if len(self.argument) == 0:
+            print("** class name missing **")
+        elif self.argument[0] not in self.valid_classes:
+            print("** class doesn't exist **")
+        elif len(self.argument) == 1:
+            print("** instance id missing **")
+        elif len(self.argument) == 2:
+            print("** attribute name missing **")
+        elif len(self.argument) == 3:
+            print("** value missing **")
+        elif len(self.argument) == 4:
+            dic = storage.all()
+            dic_key = f"{self.argument[0]}.{self.argument[1]}"
+            attr_name = self.argument[2]
+            attr_value = self.argument[3]
+            if dic_key not in dic:
+                print("** no instance found **")
+            else:
+                obj = dic[dic_key]
+               # if attr_name not in obj:
+                #    obj[attr_name]
+                if attr_name in obj:
+                    attribute = obj[attr_name]
+                    attr_type = type(attribute)
+                    attr_value = attr_type(attr_value)   # type casting
+                    obj[attr_name] = attr_value          # updated attribute
+                    storage.save()
+
     def help_quit(self):
         """help for quit command"""
         print("Quit command to exit the program\n")
@@ -94,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
         """help for create command"""
         print("type in create with the appropriate class name")
         print("of the command you want to print")
-        print ("an instance of the class will be created") 
+        print("an instance of the class will be created")
         print("and the id will be display")
 
     def help_show(self):
@@ -108,6 +144,17 @@ class HBNBCommand(cmd.Cmd):
         print("type the word destroy along with class name and object id")
         print("it will delete the dictionary representation of the object")
         print("after the deleting, the dictionary is saved in storage")
+
+    def help_all(self):
+        """help for all command"""
+        print("type in the word all with or without class name")
+        print("it prints a list of strings representing all object")
+        print("available in storage")
+
+    def help_update(self):
+        """help for update command"""
+        print("type in update along with class name, id, attribute, value")
+        print("to update the attributes of an instance")
 
 
 if __name__ == '__main__':
