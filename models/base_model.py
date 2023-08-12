@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from uuid import uuid4
 from datetime import datetime
-from models.__init__ import storage
+from models import storage
 """ This module contains a superclass BaseModel that will be inherited"""
 
 

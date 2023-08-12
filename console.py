@@ -3,8 +3,13 @@
 import cmd
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
-from models.__init__ import storage
+from models import storage
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -13,7 +18,32 @@ class HBNBCommand(cmd.Cmd):
     valid_classes = {
             "BaseModel": BaseModel,
             "FileStorage": FileStorage,
-            "User": User
+            "User": User,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Place": Place,
+            "Review": Review
+            }
+    data_types = {
+            "email": str,
+            "password": str,
+            "first_name": str,
+            "last_name": str,
+            "name": str,
+            "state_id": str,
+            "city_id": str,
+            "user_id": str,
+            "description": str,
+            "number_rooms": int,
+            "number_bathrooms": int,
+            "max_guest": int,
+            "price_by_night": int,
+            "latitude": float,
+            "longitude": float,
+            "amenity_ids": str,
+            "place_id": str,
+            "text": str
             }
 
     def do_quit(self, argument):
@@ -113,13 +143,15 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
             else:
                 obj = dic[dic_key]
-               # if attr_name not in obj:
-                #    obj[attr_name]
+                if attr_name not in obj and attr_name in self.data_types:
+                    obj[attr_name] = None
+                    attr_type = self.data_types[attr_name]  # get data type
+                    attribute = attr_type(attr_value)  # type casting
+                    obj[attr_name] = attribute         # updated attribute
                 if attr_name in obj:
-                    attribute = obj[attr_name]
-                    attr_type = type(attribute)
-                    attr_value = attr_type(attr_value)   # type casting
-                    obj[attr_name] = attr_value          # updated attribute
+                    attr_type = self.data_types[attr_name]
+                    attribute = attr_type(attr_value)  # type casting
+                    obj[attr_name] = attribute          # updated attribute
                     storage.save()
 
     def help_quit(self):
