@@ -8,6 +8,7 @@ from datetime import datetime
 from models.base_model import BaseModel
 import pep8
 
+
 class TestBaseModel(unittest.TestCase):
     """
     testing the BaseModel class
@@ -19,7 +20,8 @@ class TestBaseModel(unittest.TestCase):
         file_path = "models/base_model.py"
         style_guide = pep8.StyleGuide(quiet=True)
         result = style_guide.check_files([file_path])
-        self.assertEqual(result.total_errors, 0, f"pep8 errors: {result.total_errors}")
+        self.assertEqual(result.total_errors, 0,
+                         f"pep8 errors: {result.total_errors}")
 
     def test_init(self):
         """
@@ -61,6 +63,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn("created_at", instance_dict)
         self.assertIn("updated_at", instance_dict)
 
+
 if __name__ == '__main__':
     unittest.main()
-
