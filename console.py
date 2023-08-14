@@ -16,7 +16,8 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """ A class that uses cmd module to implement a CLI"""
     prompt = "(hbnb) "
-    if stdin.isatty() == False:
+
+    if stdin.isatty() is False:
         prompt = "(hbnb) \n"
     valid_classes = {
             "BaseModel": BaseModel,
@@ -48,6 +49,7 @@ class HBNBCommand(cmd.Cmd):
             "place_id": str,
             "text": str
             }
+
     def emptyline(self):
         """does nothing when an empty line is entered"""
         pass
