@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """A console for the project"""
 import cmd
+from sys import stdin
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models import storage
@@ -15,6 +16,8 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """ A class that uses cmd module to implement a CLI"""
     prompt = "(hbnb) "
+    if stdin.isatty() == False:
+        prompt = "(hbnb) \n"
     valid_classes = {
             "BaseModel": BaseModel,
             "FileStorage": FileStorage,
@@ -45,6 +48,9 @@ class HBNBCommand(cmd.Cmd):
             "place_id": str,
             "text": str
             }
+    def emptyline(self):
+        """does nothing when an empty line is entered"""
+        pass
 
     def do_quit(self, argument):
         """this command exits the CLI"""
