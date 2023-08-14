@@ -4,7 +4,7 @@ module for testing user class
 """
 import unittest
 import pep8
-from models.user import User
+from models.amenity import Amenity
 
 class TestUser(unittest.TestCase):
     """
@@ -15,21 +15,18 @@ class TestUser(unittest.TestCase):
         """
         test PEP complaince
         """ 
-        file_path = "models/user.py"
+        file_path = "models/amenity.py"
         style_guide = pep8.StyleGuide(quiet=True)
         result = style_guide.check_files([file_path])
         self.assertEqual(result.total_errors, 0, f"pep8 errors: {result.total_errors}")
 
-    def test_user_attributes(self):
+    def test_amenity(self):
         """
-        testing attributes
+        testing amenity
         """
-        user = User()
-        self.assertTrue(hasattr(user, 'email'))
-        self.assertTrue(hasattr(user, 'password'))
-        self.assertTrue(hasattr(user, 'first_name'))
-        self.assertTrue(hasattr(user, 'last_name'))
-
+        instance = Amenity()
+        self.assertTrue(hasattr(instance, 'name'))
+        self.assertIs(instance.name, str)
 
 if __name__ == '__main__':
     unittest.main()
