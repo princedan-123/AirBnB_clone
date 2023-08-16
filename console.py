@@ -86,12 +86,13 @@ class HBNBCommand(cmd.Cmd):
         elif len(self.argument) == 1:
             print("** instance id missing **")
         elif len(self.argument) == 2:
-            dic_key = f"{self.argument[0]}.{self.argument[1]}"
-            dic = storage.all()
-            if dic_key not in dic:
+            self.dic_key = f"{self.argument[0]}.{self.argument[1]}"
+            self.dic = storage.all()
+            if self.dic_key not in self.dic:
                 print("** no instance found **")
             else:
-                print(dic[dic_key])
+                string = f"[{self.argument[0]}] ({self.argument[1]})"
+                print(f"{string} {self.dic[self.dic_key]}")
 
     def do_destroy(self, line):
         """destroys an instance based on class name and id and
