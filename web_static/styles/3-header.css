@@ -1,6 +1,6 @@
 /* styling for header */
 header{
-	color:white; height:70px; width: 100px; border-bottom-width:1px; 
-	border-bottom-color: #CCCCCC; background-image:url("images/logo.png");
+	color:white; height:70px; width: 100%; border-bottom-width:1px; 
+	border-bottom-color: #CCCCCC; background-image:url("../images/logo.png");
 	background-repeat:no-repeat; background-position:20px center;
 }
