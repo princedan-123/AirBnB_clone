@@ -1,5 +1,5 @@
 /* styling for footer level elements */
 footer{
-	color: #00FF00; height: 60%; width: 100%; display:flex; justify-content:center;
+	background-color: #00FF00; height: 60%; width: 100%; display:flex; justify-content:center;
 	align-items:center;
 }
